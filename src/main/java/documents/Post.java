@@ -3,6 +3,7 @@ package documents;
 import java.util.ArrayList;
 
 public class Post {
+    private String id;
     private String username;
     private String text;
     private int likes;
@@ -15,6 +16,14 @@ public class Post {
         this.likes = likes;
         this.tags = tags;
         this.comments = comments;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {

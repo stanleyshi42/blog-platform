@@ -52,6 +52,7 @@ public class PostDAO {
         return posts;
     }
 
+    // TODO DELETE
     public static void main() {
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
         MongoDatabase database = mongoClient.getDatabase("blogPlatform");

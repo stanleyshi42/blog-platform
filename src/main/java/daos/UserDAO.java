@@ -63,10 +63,11 @@ public class UserDAO {
                 .append("username", username);
         FindIterable<Document> result = collection.find(filter);
 
-        mongoClient.close();
         if (result.iterator().hasNext()) {
+            mongoClient.close();
             return true;
         }
+        mongoClient.close();
         return false;
     }
 
