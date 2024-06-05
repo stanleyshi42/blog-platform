@@ -1,5 +1,6 @@
 package menus;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import daos.UserDAO;
@@ -22,6 +23,21 @@ public class LoginMenu {
         return true;
     }
 
+    private static boolean validatePassword(String password) {
+
+        if (password.contains(" ")) {
+            System.out.println("Error: Password contains whitespace");
+            return false;
+        }
+
+        if (password == null) {
+            System.out.println("Error: Invalid password");
+            return false;
+        }
+
+        return true;
+    }
+
     private static void registerMenu(Scanner sc) {
 
         try {
@@ -34,19 +50,20 @@ public class LoginMenu {
             username = username.trim();
             password = password.trim();
 
-            if (!LoginMenu.validateUsername(username)) {
+            // Check if username and password are valid
+            if (!validateUsername(username))
                 return;
-            }
-            if (password.contains(" ")) {
-                System.out.println("Error: Password contains whitespace");
+            if (!validatePassword(password))
                 return;
-            }
 
             if (UserDAO.addUser(username, password))
-                System.out.println("New user successfully registered");
+                System.out.println("Successfully registered");
             else
-                System.out.println("Failed to register new user");
+                System.out.println("Failed to register");
 
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input");
+            sc.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,12 +83,15 @@ public class LoginMenu {
             if (UserDAO.authenticateUser(username, password)) {
                 User user = UserDAO.getUser(username);
                 if (user != null) {
-                    //MainMenu.run(sc, user);
+                    MainMenu.run(sc, user);
                 }
 
             } else
                 System.out.println("Login failed");
 
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input");
+            sc.nextLine();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,6 +125,9 @@ public class LoginMenu {
                         System.out.println("Invalid input");
                 }
 
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input");
+                sc.nextLine();
             } catch (Exception e) {
                 e.printStackTrace();
             }
