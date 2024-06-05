@@ -12,6 +12,8 @@ public class CreatePostMenu {
             System.out.println("Enter post:");
             String textInput = sc.nextLine();
 
+            // TODO ask for hashtags
+
             if(PostDAO.addPost(user.getUsername(), textInput, null))
                 System.out.println("Post successfully made");
             else

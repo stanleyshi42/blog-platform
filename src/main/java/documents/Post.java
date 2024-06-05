@@ -10,7 +10,8 @@ public class Post {
     private ArrayList<String> tags;
     private ArrayList<String> comments;
 
-    public Post(String username, String text, int likes, ArrayList<String> tags, ArrayList<String> comments) {
+    public Post(String id, String username, String text, int likes, ArrayList<String> tags, ArrayList<String> comments) {
+        this.id = id;
         this.username = username;
         this.text = text;
         this.likes = likes;
@@ -69,11 +70,13 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "username='" + username + '\'' +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
                 ", text='" + text + '\'' +
                 ", likes=" + likes +
                 ", tags=" + tags +
                 ", comments=" + comments +
                 '}';
     }
+
 }
