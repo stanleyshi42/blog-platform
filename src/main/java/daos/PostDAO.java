@@ -18,7 +18,9 @@ public class PostDAO {
         Document document = new Document()
                 .append("username", username)
                 .append("text", text)
-                .append("tags", tags);
+                .append("likes", 0)
+                .append("tags", tags)
+                .append("comments", new ArrayList<String>());
         collection.insertOne(document);
 
         mongoClient.close();
@@ -35,8 +37,7 @@ public class PostDAO {
         ArrayList<Post> posts = null;
 
         // Check if operation was successful
-        if (!result.iterator().hasNext())
-            return posts;
+        if (!result.iterator().hasNext()) return posts;
 
         posts = new ArrayList<>();
         for (Document d : result) {
@@ -65,8 +66,7 @@ public class PostDAO {
         ArrayList<Post> posts = null;
 
         // Check if operation was successful
-        if (!result.iterator().hasNext())
-            return posts;
+        if (!result.iterator().hasNext()) return posts;
 
         posts = new ArrayList<>();
         for (Document d : result) {
@@ -92,26 +92,50 @@ public class PostDAO {
         FindIterable<Document> result = collection.find(filter);
 
         // Check if operation was successful
-        if (!result.iterator().hasNext())
+        if (!result.iterator().hasNext()) {
+            mongoClient.close();
             return null;
-
-        for (Document d : result) {
-            String username = d.get("username").toString();
-            String text = d.get("text").toString();
-            ArrayList<String> tags = (ArrayList<String>) d.get("tags");
-
-            Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
-            System.out.println(post); // TODO delete debug text
-            return post;
         }
 
+        Document postDocument = result.iterator().next();
+        String username = postDocument.get("username").toString();
+        String text = postDocument.get("text").toString();
+        ArrayList<String> tags = (ArrayList<String>) postDocument.get("tags");
+
+        Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
         mongoClient.close();
-        return null;
+        return post;
     }
 
-    public static boolean updateLikes(int likes) {
+    public static boolean updatePost(Post post) {
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("blogPlatform");
+        MongoCollection<Document> collection = database.getCollection("posts");
+
+        Document updateFilter = new Document("_id", new ObjectId(post.getId()));
+        Document updateDocument = new Document("$set", post);
+        collection.updateOne(updateFilter, updateDocument);
 
         return false;
+    }
+
+    public static boolean incrementLikesById(String id) {
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("blogPlatform");
+        MongoCollection<Document> collection = database.getCollection("posts");
+
+        Post post = getPostById(id);
+        if (post == null)
+            return false;
+        post.setLikes(post.getLikes() + 1);
+
+        Document updateFilter = new Document("_id", new ObjectId(post.getId()));
+        Document updateDocument = new Document("likes", post.getLikes());
+        collection.updateOne(updateFilter, updateDocument);
+
+        mongoClient.close();
+        return true;
+
     }
 
 }
