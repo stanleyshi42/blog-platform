@@ -167,6 +167,7 @@ public class PostDAO {
 
         Document filter = new Document("_id", new ObjectId(id));
         var result = collection.deleteOne(filter);
+        mongoClient.close();
         return result.wasAcknowledged();
     }
 
