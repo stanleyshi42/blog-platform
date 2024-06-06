@@ -3,6 +3,7 @@ package menus;
 import daos.PostDAO;
 import documents.User;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class CreatePostMenu {
 
             // TODO ask for hashtags
 
-            if(PostDAO.addPost(user.getUsername(), textInput, null))
+            if (PostDAO.addPost(user.getUsername(), textInput, new ArrayList<String>()))
                 System.out.println("Post successfully made");
             else
                 System.out.println("Post failed");

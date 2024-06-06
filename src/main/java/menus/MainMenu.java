@@ -1,10 +1,9 @@
 package menus;
 
-import documents.User;
-
-import javax.swing.text.View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import documents.User;
 
 public class MainMenu {
     public static void run(Scanner sc, User user) {
@@ -29,7 +28,7 @@ public class MainMenu {
                         ViewPostMenu.run(sc, user);
                         continue;
                     case 3:
-                        // TODO
+                        UpdatePostMenu.run(sc, user);
                         continue;
                     case 4:
                         // TODO

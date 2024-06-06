@@ -47,7 +47,6 @@ public class PostDAO {
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
 
             Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
-            System.out.println(post); // TODO delete debug text
             posts.add(post);
         }
 
@@ -75,7 +74,6 @@ public class PostDAO {
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
 
             Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
-            System.out.println(post); // TODO delete debug text
             posts.add(post);
         }
 

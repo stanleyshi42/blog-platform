@@ -41,7 +41,7 @@ public class ViewPostMenu {
 
     private static void printPostsByUsername(Scanner sc) {
         try {
-            System.out.println("Enter username:2");
+            System.out.println("Enter username:");
             String username = sc.nextLine();
             ArrayList<Post> posts = PostDAO.getPostsByUsername(username);
 
@@ -61,7 +61,6 @@ public class ViewPostMenu {
             e.printStackTrace();
 
         }
-
 
     }
 
