@@ -126,4 +126,14 @@ public class PostDAO {
 
     }
 
+    public static boolean deletePost(String id){
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("blogPlatform");
+        MongoCollection<Document> collection = database.getCollection("posts");
+
+        Document filter = new Document("_id", new ObjectId(id));
+        var result = collection.deleteOne(filter);
+        return result.wasAcknowledged();
+    }
+
 }
