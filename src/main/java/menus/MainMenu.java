@@ -31,7 +31,7 @@ public class MainMenu {
                         UpdatePostMenu.run(sc, user);
                         continue;
                     case 4:
-                        // TODO
+                        DeletePostMenu.run(sc, user);
                         continue;
                     case 5:
                         return; // Return to login menu
