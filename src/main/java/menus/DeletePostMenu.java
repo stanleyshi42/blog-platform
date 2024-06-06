@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class DeletePostMenu {
 
+    // Display posts to the end user
     private static boolean printPosts(ArrayList<Post> posts) {
         try {
             if (posts == null) {

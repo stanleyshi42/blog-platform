@@ -38,6 +38,7 @@ public class LoginMenu {
         return true;
     }
 
+    // Prompt user for registration details (username and password)
     private static void registerMenu(Scanner sc) {
 
         try {
@@ -70,6 +71,7 @@ public class LoginMenu {
 
     }
 
+    // Prompt user for login credentials
     private static void loginMenu(Scanner sc) {
 
         try {
