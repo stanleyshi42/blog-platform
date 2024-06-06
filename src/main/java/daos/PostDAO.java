@@ -45,8 +45,9 @@ public class PostDAO {
             String username = d.get("username").toString();
             String text = d.get("text").toString();
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
+            ArrayList<String> comments = (ArrayList<String>) d.get("comments");
 
-            Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
+            Post post = new Post(id, username, text, 0, tags, comments);
             posts.add(post);
         }
 
@@ -72,8 +73,9 @@ public class PostDAO {
             String id = d.get("_id").toString();
             String text = d.get("text").toString();
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
+            ArrayList<String> comments = (ArrayList<String>) d.get("comments");
 
-            Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
+            Post post = new Post(id, username, text, 0, tags, comments);
             posts.add(post);
         }
 
@@ -99,8 +101,9 @@ public class PostDAO {
         String username = postDocument.get("username").toString();
         String text = postDocument.get("text").toString();
         ArrayList<String> tags = (ArrayList<String>) postDocument.get("tags");
+        ArrayList<String> comments = (ArrayList<String>) postDocument.get("comments");
 
-        Post post = new Post(id, username, text, 0, tags, new ArrayList<>());
+        Post post = new Post(id, username, text, 0, tags, comments);
         mongoClient.close();
         return post;
     }
@@ -112,6 +115,23 @@ public class PostDAO {
 
         Document updateFilter = new Document("_id", new ObjectId(id));
         Document updateDocument = new Document("$set", new Document("text", text));
+        collection.updateOne(updateFilter, updateDocument);
+
+        mongoClient.close();
+        return true;
+    }
+
+    // Add given comment to post's comments list
+    public static boolean updatePostComments(String id, String comment) {
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("blogPlatform");
+        MongoCollection<Document> collection = database.getCollection("posts");
+
+        ArrayList<String> comments = getPostById(id).getComments();
+        comments.add(comment);
+
+        Document updateFilter = new Document("_id", new ObjectId(id));
+        Document updateDocument = new Document("$set", new Document("comments", comments));
         collection.updateOne(updateFilter, updateDocument);
 
         mongoClient.close();
