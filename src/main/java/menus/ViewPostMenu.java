@@ -79,9 +79,11 @@ public class ViewPostMenu {
         System.out.println(index + ".");
         System.out.println(post.getUsername());
         System.out.println("    " + post.getText());
+        System.out.print("Tags: ");
         for (String s : post.getTags()) {
-            System.out.println(s);
+            System.out.print(s + ", ");
         }
+        System.out.println();
         System.out.println("    Likes: " + post.getLikes());
         System.out.println("    ~Comments~");
         for (String s : post.getComments()) {

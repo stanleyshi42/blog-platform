@@ -22,9 +22,11 @@ public class DeletePostMenu {
             for (Post p : posts) {
                 System.out.println(++index + ".");
                 System.out.println("    " + p.getText());
+                System.out.print("Tags: ");
                 for (String s : p.getTags()) {
-                    System.out.println(s);
+                    System.out.print(s + ", ");
                 }
+                System.out.println();
                 System.out.println("    Likes: " + p.getLikes());
                 for (String s : p.getComments()) {
                     System.out.println(s);
