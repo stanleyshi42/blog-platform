@@ -39,6 +39,32 @@ public class ViewPostMenu {
 
     }
 
+    private static void printPostsByUsername(Scanner sc) {
+        try {
+            System.out.println("Enter username:2");
+            String username = sc.nextLine();
+            ArrayList<Post> posts = PostDAO.getPostsByUsername(username);
+
+            if (posts == null) {
+                System.out.println("No posts found");
+                return;
+            }
+
+            for (Post p : posts) {
+                printPost(p);
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input");
+            sc.nextLine(); // Clear invalid input
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+
+    }
+
     public static void run(Scanner sc, User user) {
 
         System.out.println("Welcome " + user.getUsername());
@@ -56,7 +82,7 @@ public class ViewPostMenu {
                         printAllPosts();
                         continue;
                     case 2:
-                        // TODO
+                        printPostsByUsername(sc);
                         continue;
                     case 3:
                         return; // Return to login menu
