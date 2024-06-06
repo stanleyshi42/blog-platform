@@ -2,6 +2,7 @@ package menus;
 
 import documents.User;
 
+import javax.swing.text.View;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class MainMenu {
                         CreatePostMenu.run(sc, user);
                         continue;
                     case 2:
-                        // TODO
+                        ViewPostMenu.run(sc, user);
                         continue;
                     case 3:
                         // TODO
