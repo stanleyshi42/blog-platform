@@ -105,6 +105,19 @@ public class PostDAO {
         return post;
     }
 
+    public static boolean updatePostText(String id, String text) {
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        MongoDatabase database = mongoClient.getDatabase("blogPlatform");
+        MongoCollection<Document> collection = database.getCollection("posts");
+
+        Document updateFilter = new Document("_id", new ObjectId(id));
+        Document updateDocument = new Document("$set", new Document("text", text));
+        collection.updateOne(updateFilter, updateDocument);
+
+        mongoClient.close();
+        return true;
+    }
+
     public static boolean incrementLikesById(String id) {
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
         MongoDatabase database = mongoClient.getDatabase("blogPlatform");
@@ -124,7 +137,7 @@ public class PostDAO {
 
     }
 
-    public static boolean deletePost(String id){
+    public static boolean deletePost(String id) {
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
         MongoDatabase database = mongoClient.getDatabase("blogPlatform");
         MongoCollection<Document> collection = database.getCollection("posts");

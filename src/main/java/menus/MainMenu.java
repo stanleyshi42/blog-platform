@@ -12,7 +12,7 @@ public class MainMenu {
         while (true) {
             System.out.println("1. Create post");
             System.out.println("2. View posts");
-            System.out.println("3. Update posts");
+            System.out.println("3. Edit posts");
             System.out.println("4. Delete posts");
             System.out.println("5. Logout");
 
