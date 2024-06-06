@@ -43,7 +43,7 @@ public class UserDAO {
         if (result.iterator().hasNext()) {
             Document userDocument = result.iterator().next();
             String password = userDocument.get("password").toString();
-            user = new User(username, password);
+            user = new User(null, username, password);
         } else {
             return null;
         }
