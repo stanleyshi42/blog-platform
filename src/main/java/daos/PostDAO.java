@@ -44,10 +44,11 @@ public class PostDAO {
             String id = d.get("_id").toString();
             String username = d.get("username").toString();
             String text = d.get("text").toString();
+            int likes = Integer.parseInt(d.get("likes").toString());
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
             ArrayList<String> comments = (ArrayList<String>) d.get("comments");
 
-            Post post = new Post(id, username, text, 0, tags, comments);
+            Post post = new Post(id, username, text, likes, tags, comments);
             posts.add(post);
         }
 
@@ -72,10 +73,11 @@ public class PostDAO {
         for (Document d : result) {
             String id = d.get("_id").toString();
             String text = d.get("text").toString();
+            int likes = Integer.parseInt(d.get("likes").toString());
             ArrayList<String> tags = (ArrayList<String>) d.get("tags");
             ArrayList<String> comments = (ArrayList<String>) d.get("comments");
 
-            Post post = new Post(id, username, text, 0, tags, comments);
+            Post post = new Post(id, username, text, likes, tags, comments);
             posts.add(post);
         }
 
@@ -100,10 +102,11 @@ public class PostDAO {
         Document postDocument = result.iterator().next();
         String username = postDocument.get("username").toString();
         String text = postDocument.get("text").toString();
+        int likes = Integer.parseInt(postDocument.get("likes").toString());
         ArrayList<String> tags = (ArrayList<String>) postDocument.get("tags");
         ArrayList<String> comments = (ArrayList<String>) postDocument.get("comments");
 
-        Post post = new Post(id, username, text, 0, tags, comments);
+        Post post = new Post(id, username, text, likes, tags, comments);
         mongoClient.close();
         return post;
     }
